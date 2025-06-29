@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $allCategories = [ 'Category 1', 'Category 2' ];
+        $allCategories = DB::table(table: 'categories')->get();
         return view(view: 'home', mergeData: ['categories' => $allCategories]);
     }
 }
