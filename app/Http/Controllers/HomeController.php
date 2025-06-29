@@ -4,19 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // $allCategories = DB::table(table: 'categories')->get();
-        $allCategories = Category::all();
-        $allPosts = Post::orderBy('id', 'desc')->get();
-        return view(view: 'home',
-            mergeData: [
-                'categories' => $allCategories,
-                'posts' => $allPosts
-            ]);
+        $categories = Category::all();
+        $posts = Post::when(request('category_id'), function ($query) {
+            $query->where('category_id', request('category_id'));
+        })->orderBy('id', 'desc')->get();
+
+        return view(view: 'home', mergeData: compact('categories', 'posts'));
     }
 }

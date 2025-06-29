@@ -77,7 +77,7 @@
                             <div class="col-sm-6">
                                 <ul class="list-unstyled mb-0">
                                     @foreach ($categories as $category)
-                                        <li><a href="#!">{{ $category->name }}</a></li>
+                                        <li><a href="{{ route('home') }}?category_id={{ $category->id }}">{{ $category->name }}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
